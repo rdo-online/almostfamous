@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta name="description" content="Almost Famous GTA — Upcoming and past shows. Catch us live in the Greater Toronto Area."/>
+  <title>Shows — Almost Famous GTA</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+  <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;600;700&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="css/style.css"/>
+</head>
+<body data-page="shows">
+
+<!-- ════════════════════════════════════════════════════════
+     NAVIGATION
+     ════════════════════════════════════════════════════════ -->
+<nav id="main-nav" aria-label="Main navigation">
+  <a class="nav-logo" href="index.html">ALMOST FAMOUS <span>GTA</span></a>
+  <button class="hamburger" aria-label="Toggle menu" aria-expanded="false">
+    <span></span><span></span><span></span>
+  </button>
+  <ul class="nav-links">
+    <li><a href="index.html#stage-section">STAGE</a></li>
+    <li><a href="shows.html" class="active">SHOWS</a></li>
+    <li><a href="index.html#about-section">ABOUT</a></li>
+    <li><a href="gallery.html">GALLERY</a></li>
+    <li><a href="mailto:almostfamousgta@gmail.com?subject=Booking%20Inquiry" class="nav-cta">CONTACT</a></li>
+  </ul>
+</nav>
+
+<!-- ════════════════════════════════════════════════════════
+     PAGE HERO
+     ════════════════════════════════════════════════════════ -->
+<header class="page-hero" role="banner">
+  <div class="page-hero-inner">
+    <h1>UPCOMING <span>SHOWS</span></h1>
+    <p>All shows &mdash; Greater Toronto Area and beyond</p>
+  </div>
+</header>
+
+<!-- ════════════════════════════════════════════════════════
+     UPCOMING SHOWS
+     ════════════════════════════════════════════════════════ -->
+<main>
+  <div class="shows-section" aria-labelledby="upcoming-heading">
+    <div class="shows-section-title" id="upcoming-heading">Upcoming Performances</div>
+    <div class="shows-grid" id="upcoming-shows" aria-live="polite">
+      <!-- Populated by JS from data/gigs.json -->
+      <p class="no-shows" style="color:var(--text-muted)">Loading shows&hellip;</p>
+    </div>
+  </div>
+
+  <!-- ════════════════════════════════════════════════════
+       RECENT PERFORMANCES
+       ════════════════════════════════════════════════════ -->
+  <div class="shows-section" aria-labelledby="recent-heading"
+       style="border-top:1px solid #1e1e1e;padding-top:2rem;margin-top:1rem;">
+    <div class="shows-section-title" id="recent-heading">Recent Performances</div>
+    <div class="shows-grid" id="recent-shows" aria-live="polite">
+      <!-- Populated by JS -->
+    </div>
+  </div>
+
+  <!-- ════════════════════════════════════════════════════
+       BOOK CTA
+       ════════════════════════════════════════════════════ -->
+  <div style="background:linear-gradient(135deg,#0d1a22,#0a1018);
+              border-top:1px solid #1e1e1e;border-bottom:1px solid #1e1e1e;
+              padding:3rem 2rem;text-align:center;margin-top:2rem;">
+    <div style="max-width:600px;margin:0 auto;">
+      <p style="font-family:var(--font-display);font-size:1.1rem;letter-spacing:0.1em;
+                margin-bottom:0.75rem;color:var(--text-muted);">
+        DON&rsquo;T SEE A SHOW NEAR YOU?
+      </p>
+      <h2 style="font-size:2rem;margin-bottom:1rem;">BOOK US FOR YOUR EVENT</h2>
+      <a href="mailto:almostfamousgta@gmail.com?subject=Booking%20Inquiry"
+         class="btn btn-primary">&#9993;&ensp;almostfamousgta@gmail.com</a>
+    </div>
+  </div>
+</main>
+
+<!-- ════════════════════════════════════════════════════════
+     FOOTER
+     ════════════════════════════════════════════════════════ -->
+<footer>
+  <div class="footer-inner">
+    <div class="footer-brand">
+      <a class="nav-logo" href="index.html">ALMOST FAMOUS <span>GTA</span></a>
+      <p>Toronto&rsquo;s premier cover band.<br/>Rock &middot; Dance &middot; Pop &middot; 80s &middot; 90s &middot; 00s</p>
+    </div>
+    <div class="footer-links">
+      <h4>Navigate</h4>
+      <ul>
+        <li><a href="shows.html">Shows</a></li>
+        <li><a href="index.html#about-section">About</a></li>
+        <li><a href="gallery.html">Gallery</a></li>
+        <li><a href="mailto:almostfamousgta@gmail.com?subject=Booking%20Inquiry">Book Us</a></li>
+      </ul>
+    </div>
+    <div class="footer-contact">
+      <h4>Connect</h4>
+      <a href="mailto:almostfamousgta@gmail.com">almostfamousgta@gmail.com</a>
+      <a href="https://linktr.ee/almostfamousgta" target="_blank" rel="noopener">linktr.ee/almostfamousgta</a>
+      <a href="https://www.youtube.com/@almostfamousgta" target="_blank" rel="noopener">YouTube</a>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <span>&copy; <span id="year"></span> Almost Famous GTA. All rights reserved.</span>
+    <a href="mailto:almostfamousgta@gmail.com?subject=Booking%20Inquiry">Book us for your event</a>
+  </div>
+</footer>
+
+<script>document.getElementById('year').textContent = new Date().getFullYear();</script>
+<script src="js/pretext.min.js"></script>
+<script src="js/main.js"></script>
+</body>
+</html>

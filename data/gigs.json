@@ -1,0 +1,24 @@
+[
+  {
+    "id": 1,
+    "date": "2026-04-17",
+    "venue": "Royal Canadian Legion Branch 101",
+    "city": "Etobicoke, ON",
+    "address": "3850 Lake Shore Blvd W, Etobicoke, ON M8W 1R3",
+    "phone": "",
+    "time": "7:00 PM",
+    "image": "images/show1.jpg",
+    "upcoming": true
+  },
+  {
+    "id": 2,
+    "date": "2026-02-06",
+    "venue": "Cuchulainn's Irish Pub",
+    "city": "Streetsville, ON",
+    "address": "Streetsville, Mississauga, ON",
+    "phone": "",
+    "time": "8:00 PM",
+    "image": "images/show2.jpg",
+    "upcoming": false
+  }
+]
