@@ -15,28 +15,32 @@ const AF = {
 
 // ── Fallback data (works with file:// protocol) ───────────
 const FALLBACK_GIGS = [
-  {
-    id: 1,
-    date: '2026-04-17',
-    venue: 'Royal Canadian Legion Branch 101',
-    city: 'Etobicoke, ON',
-    address: '3850 Lake Shore Blvd W, Etobicoke, ON M8W 1R3',
-    phone: '',
-    time: '7:00 PM',
-    image: 'images/show1.jpg',
-    upcoming: true,
-  },
-  {
-    id: 2,
-    date: '2026-02-06',
-    venue: "Cuchulainn's Irish Pub",
-    city: 'Streetsville, ON',
-    address: 'Streetsville, Mississauga, ON',
-    phone: '',
-    time: '8:00 PM',
-    image: 'images/show2.jpg',
-    upcoming: false,
-  },
+  { id: '2026-04-17', date: '2026-04-17', time: '7:00 PM',  venue: 'Royal Canadian Legion, Branch 101', city: 'Etobicoke',    address: '3850 Lake Shore Blvd W, Etobicoke, ON M8W 1R3',   phone: '(416) 255-4381', upcoming: true,  private: false },
+  { id: '2026-02-06', date: '2026-02-06', time: '9:00 PM',  venue: "Cuchulainn's Irish Pub",            city: 'Streetsville', address: '158 Queen St S, Mississauga, ON L5M 1K8',          phone: '(905) 821-3790', upcoming: false, private: false },
+  { id: '2026-01-30', date: '2026-01-30', time: '7:00 PM',  venue: 'Royal Canadian Legion, Branch 101', city: 'Etobicoke',    address: '3850 Lake Shore Blvd W, Etobicoke, ON M8W 1R3',   phone: '(416) 255-4381', upcoming: false, private: false },
+  { id: '2025-12-12', date: '2025-12-12', time: '9:00 PM',  venue: "Cuchulainn's Irish Pub",            city: 'Streetsville', address: '158 Queen St S, Mississauga, ON L5M 1K8',          phone: '(905) 821-3790', upcoming: false, private: false },
+  { id: '2025-12-05', date: '2025-12-05', time: '7:00 PM',  venue: 'Royal Canadian Legion, Branch 101', city: 'Etobicoke',    address: '3850 Lake Shore Blvd W, Etobicoke, ON M8W 1R3',   phone: '(416) 255-4381', upcoming: false, private: false },
+  { id: '2025-11-08', date: '2025-11-08', time: '',          venue: 'Private Party',                    city: 'Mississauga',  address: '',                                                  phone: '',               upcoming: false, private: true  },
+  { id: '2025-10-30', date: '2025-10-30', time: '8:00 PM',  venue: 'Smokeshow BBQ & Brew',              city: 'Toronto',      address: '744 Mt Pleasant Rd, Toronto, ON M4S 2N6',           phone: '(416) 901-7469', upcoming: false, private: false },
+  { id: '2025-10-17', date: '2025-10-17', time: '9:00 PM',  venue: 'South Shore Bar & Grill',           city: 'Toronto',      address: '264 Browns Line, Toronto, ON',                      phone: '(416) 704-1820', upcoming: false, private: false },
+  { id: '2025-10-09', date: '2025-10-09', time: '8:00 PM',  venue: 'Smokeshow BBQ & Brew',              city: 'Toronto',      address: '744 Mt Pleasant Rd, Toronto, ON M4S 2N6',           phone: '(416) 901-7469', upcoming: false, private: false },
+  { id: '2025-10-03', date: '2025-10-03', time: '7:00 PM',  venue: 'Royal Canadian Legion, Branch 101', city: 'Etobicoke',    address: '3850 Lake Shore Blvd W, Etobicoke, ON M8W 1R3',   phone: '(416) 255-4381', upcoming: false, private: false },
+  { id: '2025-09-26', date: '2025-09-26', time: '8:00 PM',  venue: 'The BLK Swan',                     city: 'Burlington',   address: '4040 Palladium Way, Burlington, ON',                phone: '',               upcoming: false, private: false },
+  { id: '2025-09-05', date: '2025-09-05', time: '9:00 PM',  venue: "Cuchulainn's Irish Pub",            city: 'Streetsville', address: '158 Queen St S, Mississauga, ON L5M 1K8',          phone: '(905) 821-3790', upcoming: false, private: false },
+  { id: '2025-08-15', date: '2025-08-15', time: '9:00 PM',  venue: 'South Shore Bar & Grill',           city: 'Toronto',      address: '264 Browns Line, Toronto, ON',                      phone: '(416) 704-1820', upcoming: false, private: false },
+  { id: '2025-08-08', date: '2025-08-08', time: '7:00 PM',  venue: 'Royal Canadian Legion, Branch 101', city: 'Etobicoke',    address: '3850 Lake Shore Blvd W, Etobicoke, ON M8W 1R3',   phone: '(416) 255-4381', upcoming: false, private: false },
+  { id: '2025-08-01', date: '2025-08-01', time: '8:00 PM',  venue: 'The BLK Swan',                     city: 'Burlington',   address: '4040 Palladium Way, Burlington, ON',                phone: '',               upcoming: false, private: false },
+  { id: '2025-07-11', date: '2025-07-11', time: '9:00 PM',  venue: "Cuchulainn's Irish Pub",            city: 'Streetsville', address: '158 Queen St S, Mississauga, ON L5M 1K8',          phone: '(905) 821-3790', upcoming: false, private: false },
+  { id: '2025-06-14', date: '2025-06-14', time: '10:00 PM', venue: "Archibald's Pub",                   city: 'Richmond Hill',address: '8950 Yonge St, Richmond Hill, ON L4C 6Z7',         phone: '(905) 889-0235', upcoming: false, private: false },
+  { id: '2025-05-30', date: '2025-05-30', time: '9:00 PM',  venue: 'South Shore Bar & Grill',           city: 'Toronto',      address: '264 Browns Line, Toronto, ON',                      phone: '(416) 704-1820', upcoming: false, private: false },
+  { id: '2025-05-24', date: '2025-05-24', time: '',          venue: 'Private Party',                    city: 'Burlington',   address: '',                                                  phone: '',               upcoming: false, private: true  },
+  { id: '2025-05-16', date: '2025-05-16', time: '9:00 PM',  venue: "Cuchulainn's Irish Pub",            city: 'Streetsville', address: '158 Queen St S, Mississauga, ON L5M 1K8',          phone: '(905) 821-3790', upcoming: false, private: false },
+  { id: '2025-04-25', date: '2025-04-25', time: '9:00 PM',  venue: 'South Shore Bar & Grill',           city: 'Toronto',      address: '264 Browns Line, Toronto, ON',                      phone: '(416) 704-1820', upcoming: false, private: false },
+  { id: '2025-03-21', date: '2025-03-21', time: '9:00 PM',  venue: "Cuchulainn's Irish Pub",            city: 'Streetsville', address: '158 Queen St S, Mississauga, ON L5M 1K8',          phone: '(905) 821-3790', upcoming: false, private: false },
+  { id: '2025-03-01', date: '2025-03-01', time: '8:00 PM',  venue: 'Carrigan Arms',                    city: 'Burlington',   address: '2025 Upper Middle Road, Burlington, ON',            phone: '(905) 332-6131', upcoming: false, private: false },
+  { id: '2025-02-28', date: '2025-02-28', time: '7:00 PM',  venue: 'Royal Canadian Legion, Branch 101', city: 'Etobicoke',    address: '3850 Lake Shore Blvd W, Etobicoke, ON M8W 1R3',   phone: '(416) 255-4381', upcoming: false, private: false },
+  { id: '2025-02-08', date: '2025-02-08', time: '10:00 PM', venue: "Archibald's Pub",                   city: 'Richmond Hill',address: '8950 Yonge St, Richmond Hill, ON L4C 6Z7',         phone: '(905) 889-0235', upcoming: false, private: false },
+  { id: '2025-01-17', date: '2025-01-17', time: '9:00 PM',  venue: 'South Shore Bar & Grill',           city: 'Toronto',      address: '264 Browns Line, Toronto, ON',                      phone: '(416) 704-1820', upcoming: false, private: false },
 ];
 
 const FALLBACK_ARTISTS = [
@@ -53,16 +57,19 @@ const FALLBACK_ARTISTS = [
 
 // ── Data loading ──────────────────────────────────────────
 async function loadData() {
+  // Fetch gigs and artists independently so one failure doesn't kill the other
   try {
-    const [gigsRes, artistsRes] = await Promise.all([
-      fetch('data/gigs.json'),
-      fetch('data/artists.json'),
-    ]);
-    if (!gigsRes.ok || !artistsRes.ok) throw new Error('HTTP error');
-    AF.gigs    = await gigsRes.json();
+    const gigsRes = await fetch('data/gigs.json');
+    if (!gigsRes.ok) throw new Error('gigs HTTP ' + gigsRes.status);
+    AF.gigs = await gigsRes.json();
+  } catch (_) {
+    AF.gigs = FALLBACK_GIGS;
+  }
+  try {
+    const artistsRes = await fetch('data/artists.json');
+    if (!artistsRes.ok) throw new Error('artists HTTP ' + artistsRes.status);
     AF.artists = await artistsRes.json();
   } catch (_) {
-    AF.gigs    = FALLBACK_GIGS;
     AF.artists = FALLBACK_ARTISTS;
   }
 }
@@ -287,19 +294,122 @@ function initTicker() {
   });
 }
 
+// ── Tagline scatter / drift effect ───────────────────────
+function initTaglineScatter() {
+  const container = document.querySelector('.hotspot-container');
+  if (!container) return;
+
+  //  text        center-x%  center-y%  float-phase  float-amp(px)  drift-lerp  max-drift(px)
+  const WORDS = [
+    { t: 'rock',    bx: 27, by: 70.5, ph: 0.0, amp: 7,  lr: 0.07, md: 55 },
+    { t: '·',       bx: 35, by: 72.0, ph: 1.1, amp: 5,  lr: 0.13, md: 70 },
+    { t: 'dance',   bx: 43, by: 69.5, ph: 2.3, amp: 8,  lr: 0.06, md: 45 },
+    { t: '·',       bx: 52, by: 71.0, ph: 3.5, amp: 4,  lr: 0.14, md: 75 },
+    { t: 'pop',     bx: 59, by: 72.5, ph: 4.7, amp: 7,  lr: 0.08, md: 55 },
+    { t: '·',       bx: 66, by: 70.0, ph: 0.4, amp: 5,  lr: 0.12, md: 68 },
+    { t: '80s',     bx: 73, by: 71.5, ph: 1.6, amp: 6,  lr: 0.09, md: 60 },
+    { t: '·',       bx: 28, by: 77.5, ph: 2.8, amp: 4,  lr: 0.11, md: 65 },
+    { t: '90s',     bx: 36, by: 76.5, ph: 4.0, amp: 7,  lr: 0.08, md: 58 },
+    { t: '·',       bx: 44, by: 78.0, ph: 5.2, amp: 5,  lr: 0.15, md: 72 },
+    { t: '00s',     bx: 51, by: 77.0, ph: 0.9, amp: 6,  lr: 0.09, md: 60 },
+    { t: 'and',     bx: 59, by: 78.5, ph: 2.1, amp: 7,  lr: 0.07, md: 50 },
+    { t: 'beyond',  bx: 68, by: 77.0, ph: 3.3, amp: 8,  lr: 0.06, md: 48 },
+  ];
+
+  // Build DOM elements
+  WORDS.forEach(w => {
+    const el = document.createElement('span');
+    el.className = 'tagline-word';
+    el.textContent = w.t;
+    el.style.left = w.bx + '%';
+    el.style.top  = w.by + '%';
+    container.appendChild(el);
+    w.el = el;
+    w.cx = 0; w.cy = 0; // current offset from base
+    w.tx = 0; w.ty = 0; // target offset
+  });
+
+  let mouseOver = false;
+  let mouseX = 0, mouseY = 0;
+  let cW = container.offsetWidth;
+  let cH = container.offsetHeight;
+  let lastTs = 0;
+
+  window.addEventListener('resize', () => {
+    cW = container.offsetWidth;
+    cH = container.offsetHeight;
+  }, { passive: true });
+
+  container.addEventListener('mousemove', e => {
+    const r = container.getBoundingClientRect();
+    mouseX = e.clientX - r.left;
+    mouseY = e.clientY - r.top;
+    mouseOver = true;
+  });
+  container.addEventListener('mouseleave', () => { mouseOver = false; });
+
+  function tick(ts) {
+    const dt = Math.min(ts - (lastTs || ts), 50); // cap delta at 50 ms
+    lastTs = ts;
+    const t = ts * 0.001; // seconds
+
+    WORDS.forEach(w => {
+      // Idle float: gentle vertical sine wave, unique phase per word
+      const floatY = w.amp * Math.sin(t * 0.75 + w.ph);
+
+      if (mouseOver) {
+        // Vector from word's base position to cursor
+        const bpx = (w.bx / 100) * cW;
+        const bpy = (w.by / 100) * cH;
+        const dx  = mouseX - bpx;
+        const dy  = mouseY - bpy;
+        const d   = Math.sqrt(dx * dx + dy * dy) || 1;
+        // Drift proportional to proximity, clamped at maxD
+        const m   = Math.min(d * 0.38, w.md);
+        w.tx = (dx / d) * m;
+        w.ty = floatY + (dy / d) * m * 0.55;
+      } else {
+        w.tx = 0;
+        w.ty = floatY;
+      }
+
+      // Lerp current toward target (frame-rate independent)
+      const f = 1 - Math.pow(1 - w.lr, dt / 16.667);
+      w.cx += (w.tx - w.cx) * f;
+      w.cy += (w.ty - w.cy) * f;
+
+      // translateX(-50%) keeps the word centered at its left% anchor
+      w.el.style.transform =
+        `translateX(calc(-50% + ${w.cx.toFixed(1)}px)) translateY(${w.cy.toFixed(1)}px)`;
+    });
+
+    requestAnimationFrame(tick);
+  }
+
+  requestAnimationFrame(tick);
+}
+
 // ── Stage modal system ────────────────────────────────────
 function initStage() {
   const overlay = document.getElementById('stage-modal-overlay');
   if (!overlay) return;
 
-  // SVG prop click handlers
-  document.querySelectorAll('.stage-prop[data-modal]').forEach(el => {
-    el.addEventListener('click', () => openStageModal(el.dataset.modal));
+  // Modal hotspots
+  document.querySelectorAll('.hotspot[data-action="modal"]').forEach(el => {
+    const handler = () => openStageModal(el.dataset.modal);
+    el.addEventListener('click', handler);
+    el.addEventListener('keydown', e => {
+      if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); handler(); }
+    });
   });
 
-  // Mobile row buttons
-  document.querySelectorAll('.stage-mobile-btn[data-modal]').forEach(el => {
-    el.addEventListener('click', () => openStageModal(el.dataset.modal));
+  // Link hotspots
+  document.querySelectorAll('.hotspot[data-action="link"]').forEach(el => {
+    const handler = () => window.open(el.dataset.href, '_blank', 'noopener');
+    el.addEventListener('click', handler);
+    el.addEventListener('keydown', e => {
+      if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); handler(); }
+    });
   });
 
   // Close on overlay click
@@ -347,28 +457,40 @@ function buildModalHTML(type) {
         <div class="badge-efc" style="margin-bottom:1.2rem">
           &#127942; EFC Talent Show &mdash; 1st Place &mdash; December 2020
         </div>
-        <p>Almost Famous GTA is Toronto's premier cover band, delivering electrifying performances spanning rock, dance, pop, and the greatest hits of the 80s, 90s, and 00s. With a massive repertoire and serious stage presence, we bring the energy of your favourite artists to every venue we play.</p>
-        <p>From intimate pubs to large events, Almost Famous GTA keeps audiences dancing all night long.</p>
+        <p>Did you know that Mississauga is home to former NHL coach and Hockey Night in Canada commentator Don Cherry, KFC&rsquo;s founder Colonel Sanders, and the world&rsquo;s oldest mayor Hazel &ldquo;Hurricane&rdquo; McCallion?</p>
+        <p>You can add to that list now &mdash; the soon-to-be-famous rock cover band, Almost Famous GTA. You&rsquo;re welcome, Mississauga.</p>
+        <p>Formed in early 2014, Almost Famous is a collection of guys and a gal who live and breathe live music. From David Bowie and The Clash to Bruno Mars and The Killers, from The Tragically Hip and U2 to Depeche Mode and Pat Benatar &mdash; if you know the words, we know the song.</p>
+        <p>Our mission is simple: bring the fun, energy, and excitement back into live music &mdash; whether that&rsquo;s your favourite pub, a festival stage, a corporate event, or your wedding dance floor.</p>
+        <p>Spanning rock, dance, and pop across the 80s, 90s, 00s and beyond, our massive repertoire keeps audiences dancing from the first song to the last. Our setlist is fully customizable to suit your crowd.</p>
+        <p>We are Almost Famous: Rich, Richard, Donn, Paul, Jim and Vanessa.</p>
         <a href="mailto:almostfamousgta@gmail.com?subject=Booking%20Inquiry" class="btn btn-primary" style="margin-top:0.5rem">Contact Us</a>
       `;
 
     case 'shows': {
-      const next = AF.gigs.find(g => g.upcoming);
-      if (!next) return '<h2>Upcoming Shows</h2><p>No upcoming shows at this time. Check back soon!</p>';
-      const dt      = `${next.date}T${parse12to24(next.time)}`;
-      const calUrl  = buildCalUrl(next);
-      const mapsUrl = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(next.address)}`;
+      const next = AF.gigs.find(g => g.upcoming === true);
+      if (!next) return `
+        <h2>Upcoming Shows</h2>
+        <p>No upcoming shows at this time. Check back soon!</p>
+        <a href="shows.html" class="btn btn-primary" style="margin-top:0.5rem">View All Shows</a>
+      `;
+      const hasTime = next.time && next.time.trim();
+      const dt      = hasTime ? `${next.date}T${parse12to24(next.time)}` : '';
+      const calUrl  = hasTime ? buildCalUrl(next) : '';
+      const mapsUrl = next.address
+        ? `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(next.address)}`
+        : '';
       return `
         <h2>Next Show</h2>
         <div class="modal-show-info">
           <div class="show-venue">${next.venue}</div>
           <div class="show-date">${formatDate(next.date)}</div>
-          <div class="show-address"><a href="${mapsUrl}" target="_blank" rel="noopener">${next.address}</a></div>
-          <div class="show-time">${next.time}</div>
-          <div class="countdown-timer" data-date="${dt}"></div>
+          ${next.address ? `<div class="show-address"><a href="${mapsUrl}" target="_blank" rel="noopener">${next.address}</a></div>` : ''}
+          ${next.phone  ? `<div class="show-address" style="margin-top:0.25rem">${next.phone}</div>` : ''}
+          ${hasTime     ? `<div class="show-time">${next.time}</div>` : ''}
+          ${dt          ? `<div class="countdown-timer" data-date="${dt}"></div>` : ''}
         </div>
         <div class="modal-actions">
-          <a href="${calUrl}" target="_blank" rel="noopener" class="btn btn-secondary">Add to Calendar</a>
+          ${calUrl ? `<a href="${calUrl}" target="_blank" rel="noopener" class="btn btn-secondary">Add to Calendar</a>` : ''}
           <a href="shows.html" class="btn btn-primary">All Shows</a>
         </div>
       `;
@@ -399,6 +521,18 @@ function buildModalHTML(type) {
         </a>
       `;
 
+    case 'contact':
+      return `
+        <h2>Get in Touch</h2>
+        <p>Have a question or want to book us for your next event?</p>
+        <p><a href="mailto:almostfamousgta@gmail.com">almostfamousgta@gmail.com</a></p>
+        <p><a href="https://linktr.ee/almostfamousgta" target="_blank" rel="noopener">linktr.ee/almostfamousgta</a></p>
+        <a href="mailto:almostfamousgta@gmail.com?subject=Booking%20Inquiry"
+           class="btn btn-primary" style="margin-top:0.5rem">
+          &#9993;&ensp;Book Us
+        </a>
+      `;
+
     default:
       return '<p>Content not available.</p>';
   }
@@ -415,8 +549,9 @@ function initNextShowBar() {
     return;
   }
 
-  const targetDate = new Date(`${next.date}T${parse12to24(next.time)}`);
-  const calUrl     = buildCalUrl(next);
+  const hasTime    = next.time && next.time.trim();
+  const targetDate = hasTime ? new Date(`${next.date}T${parse12to24(next.time)}`) : new Date(`${next.date}T20:00:00`);
+  const calUrl     = hasTime ? buildCalUrl(next) : '';
 
   bar.innerHTML = `
     <div class="next-show-content">
@@ -425,12 +560,11 @@ function initNextShowBar() {
         <span class="next-show-venue">${next.venue}</span>
         <span class="next-show-sep">·</span>
         <span class="next-show-date">${formatDate(next.date)}</span>
-        <span class="next-show-sep">·</span>
-        <span class="next-show-time">${next.time}</span>
+        ${hasTime ? `<span class="next-show-sep">·</span><span class="next-show-time">${next.time}</span>` : ''}
       </div>
       <div class="next-show-countdown" id="main-countdown"></div>
       <div class="next-show-actions">
-        <a href="${calUrl}" target="_blank" rel="noopener" class="btn btn-secondary btn-sm">Add to Calendar</a>
+        ${calUrl ? `<a href="${calUrl}" target="_blank" rel="noopener" class="btn btn-secondary btn-sm">Add to Calendar</a>` : ''}
         <a href="shows.html" class="btn btn-primary btn-sm">ALL SHOWS</a>
       </div>
     </div>
@@ -631,90 +765,127 @@ function navigateLightbox(dir) {
 // ── Shows page ────────────────────────────────────────────
 async function initShowsPage() {
   const upcomingEl = document.getElementById('upcoming-shows');
-  const recentEl   = document.getElementById('recent-shows');
-  if (!upcomingEl && !recentEl) return;
+  const pastEl     = document.getElementById('past-shows');
+  console.log('[AF] initShowsPage — upcomingEl:', !!upcomingEl, '| pastEl:', !!pastEl);
+
+  if (!upcomingEl && !pastEl) return;
 
   if (!AF.gigs.length) await loadData();
 
-  const upcoming = AF.gigs.filter(g => g.upcoming);
-  const past     = AF.gigs.filter(g => !g.upcoming);
+  console.log('[AF] total gigs loaded:', AF.gigs.length);
 
+  const upcoming = AF.gigs.filter(g => g.upcoming === true);
+  const past     = AF.gigs.filter(g => g.upcoming !== true);
+
+  console.log('[AF] upcoming:', upcoming.length, '| past:', past.length);
+
+  // ── Upcoming ──────────────────────────────────────────
   if (upcomingEl) {
+    upcomingEl.innerHTML = '';
     if (!upcoming.length) {
-      upcomingEl.innerHTML = '<p class="no-shows">No upcoming shows right now. Check back soon!</p>';
+      upcomingEl.innerHTML = '<p class="no-shows">No upcoming shows right now &mdash; check back soon!</p>';
     } else {
-      upcoming.forEach(g => upcomingEl.appendChild(createShowCard(g, true)));
-      // Shrinkwrap after paint
-      requestAnimationFrame(() => shrinkwrapCards(upcomingEl));
+      upcoming.forEach(g => {
+        try {
+          upcomingEl.appendChild(createUpcomingCard(g));
+        } catch (err) {
+          console.error('[AF] createUpcomingCard failed for', g.date, err);
+        }
+      });
     }
   }
 
-  if (recentEl) {
+  // ── Past — grouped by year, descending ────────────────
+  if (pastEl) {
     if (!past.length) {
-      recentEl.innerHTML = '<p class="no-shows">No past performances on record yet.</p>';
+      pastEl.innerHTML = '<p class="no-shows">No past performances on record yet.</p>';
     } else {
-      past.forEach(g => recentEl.appendChild(createShowCard(g, false)));
-      requestAnimationFrame(() => shrinkwrapCards(recentEl));
+      // Group by year
+      const byYear = {};
+      past.forEach(g => {
+        const yr = (g.date || '').slice(0, 4) || 'Unknown';
+        (byYear[yr] = byYear[yr] || []).push(g);
+      });
+      const years = Object.keys(byYear).sort((a, b) => b - a);
+      console.log('[AF] past years:', years, '| total past shows:', past.length);
+
+      // Build as one HTML string — no risk of partial DOM writes
+      pastEl.innerHTML = years.map(yr => `
+        <div class="past-year-group">
+          <h3 class="past-year-heading">${yr}</h3>
+          <div class="past-shows-grid">
+            ${byYear[yr].map(g => {
+              const name = g.private ? 'Private Event' : (g.venue || 'TBA');
+              return `
+                <div class="show-card past">
+                  <div class="show-card-inner past-card-inner">
+                    <div class="show-date-badge">${formatDate(g.date)}</div>
+                    <p class="show-venue past-venue">${name}</p>
+                    <p class="show-city">${g.city || ''}</p>
+                  </div>
+                </div>`;
+            }).join('')}
+          </div>
+        </div>`).join('');
+
+      console.log('[AF] past shows rendered OK');
     }
   }
 
   startCountdownsForPage();
 }
 
-function createShowCard(gig, isUpcoming) {
-  const card = document.createElement('div');
-  card.className = `show-card ${isUpcoming ? 'upcoming' : 'past'}`;
+function createUpcomingCard(gig) {
+  const card     = document.createElement('div');
+  card.className = 'show-card upcoming';
 
-  const calUrl  = buildCalUrl(gig);
-  const mapsUrl = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(gig.address)}`;
-  const mapEmbed = `https://maps.google.com/maps?q=${encodeURIComponent(gig.address)}&output=embed`;
-  const dt      = `${gig.date}T${parse12to24(gig.time)}`;
+  // Guard: if time is missing, skip calendar/countdown rather than throw
+  const hasTime  = gig.time && gig.time.trim();
+  const dt       = hasTime ? `${gig.date}T${parse12to24(gig.time)}` : '';
+  const calUrl   = hasTime ? buildCalUrl(gig) : '';
+  const mapsUrl  = gig.address
+    ? `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(gig.address)}`
+    : '';
+  const mapEmbed = gig.address
+    ? `https://maps.google.com/maps?q=${encodeURIComponent(gig.address)}&output=embed`
+    : '';
 
   card.innerHTML = `
     <div class="show-card-inner">
       <div class="show-date-badge">${formatDate(gig.date)}</div>
       <h3 class="show-venue">${gig.venue}</h3>
       <p class="show-city">${gig.city}</p>
-      <p class="show-address">
-        <a href="${mapsUrl}" target="_blank" rel="noopener">${gig.address}</a>
-      </p>
-      <p class="show-time">Doors: ${gig.time}</p>
-      ${isUpcoming ? `<div class="show-countdown" data-date="${dt}"></div>` : ''}
-      ${isUpcoming ? `
-        <div class="show-card-actions">
-          <a href="${calUrl}" target="_blank" rel="noopener" class="btn btn-secondary btn-sm">Add to Calendar</a>
-        </div>
-        <div class="show-map">
-          <iframe src="${mapEmbed}" width="100%" height="220" frameborder="0"
-                  style="border:0" allowfullscreen loading="lazy"
-                  title="Map of ${gig.venue}"></iframe>
-        </div>` : ''}
+      ${gig.address ? `<p class="show-address"><a href="${mapsUrl}" target="_blank" rel="noopener">${gig.address}</a></p>` : ''}
+      ${gig.phone   ? `<p class="show-phone">${gig.phone}</p>` : ''}
+      ${hasTime     ? `<p class="show-time">&#9679;&ensp;${gig.time}</p>` : ''}
+      ${dt          ? `<div class="show-countdown" data-date="${dt}"></div>` : ''}
+      ${calUrl      ? `
+      <div class="show-card-actions">
+        <a href="${calUrl}" target="_blank" rel="noopener" class="btn btn-secondary btn-sm">+ Add to Calendar</a>
+      </div>` : ''}
+      ${mapEmbed    ? `
+      <div class="show-map">
+        <iframe src="${mapEmbed}" width="100%" height="240" frameborder="0"
+                style="border:0" allowfullscreen loading="lazy"
+                title="Map of ${gig.venue}"></iframe>
+      </div>` : ''}
     </div>
   `;
   return card;
 }
 
-function shrinkwrapCards(container) {
-  if (!window.Pretext) return;
-  container.querySelectorAll('.show-card-inner').forEach(card => {
-    const venueEl = card.querySelector('.show-venue');
-    if (!venueEl) return;
-    const style  = getComputedStyle(venueEl);
-    const fs     = parseFloat(style.fontSize);
-    const ff     = style.fontFamily;
-    const fw     = style.fontWeight;
-    const prep   = Pretext.prepare(venueEl.textContent, { fontSize: fs, fontFamily: ff, fontWeight: fw });
-
-    let maxW = 0;
-    // walkLineRanges lets us find the natural single-line width
-    Pretext.walkLineRanges(prep, 9999, fs * 1.4, (s, e, lw) => { maxW = Math.max(maxW, lw); });
-
-    if (maxW > 0) {
-      // Add padding + a bit of breathing room
-      const minPx = Math.ceil(maxW) + 64;
-      card.style.minWidth = minPx + 'px';
-    }
-  });
+function createPastCard(gig) {
+  const card      = document.createElement('div');
+  card.className  = 'show-card past';
+  const venueName = gig.private ? 'Private Event' : (gig.venue || 'TBA');
+  card.innerHTML  = `
+    <div class="show-card-inner past-card-inner">
+      <div class="show-date-badge">${formatDate(gig.date)}</div>
+      <p class="show-venue past-venue">${venueName}</p>
+      <p class="show-city">${gig.city || ''}</p>
+    </div>
+  `;
+  return card;
 }
 
 function startCountdownsForPage() {
@@ -816,9 +987,8 @@ async function init() {
   const page = document.body.dataset.page || 'home';
 
   if (page === 'home') {
-    initHeroAnimation();
-    initTicker();
     initStage();
+    initTaglineScatter();
     initNextShowBar();
     initDraggablePhoto();
     initGalleryPreview();
