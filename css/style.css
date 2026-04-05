@@ -86,7 +86,7 @@ h1,h2,h3,h4 { font-family: var(--font-display); letter-spacing: 0.05em; }
 .btn-ghost:hover { border-color: var(--accent); color: var(--accent); }
 .btn-sm { padding: 0.45em 1em; font-size: 0.78rem; }
 
-/* ── Navigation ────────────────────────────────────────── */
+/* ── Navigation (subpages only — index.html has no nav) ── */
 #main-nav {
   position: sticky;
   top: 0;
@@ -98,8 +98,20 @@ h1,h2,h3,h4 { font-family: var(--font-display); letter-spacing: 0.05em; }
   display: flex;
   align-items: center;
   padding: 0 2rem;
-  gap: 2rem;
 }
+.nav-back {
+  font-family: var(--font-display);
+  font-size: 0.82rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  text-decoration: none;
+  transition: color var(--transition);
+}
+.nav-back:hover { color: var(--accent); text-decoration: none; }
+
+/* Full nav elements (gallery, shows, and other subpages) */
 .nav-logo {
   font-family: var(--font-display);
   font-size: 1.3rem;
@@ -111,6 +123,7 @@ h1,h2,h3,h4 { font-family: var(--font-display); letter-spacing: 0.05em; }
   display: flex;
   align-items: center;
   line-height: 1;
+  text-decoration: none;
 }
 .nav-logo span { color: var(--text-muted); font-weight: 400; font-size: 0.9em; }
 .nav-star { display: block; transition: color var(--transition), transform var(--transition); }
@@ -130,9 +143,10 @@ h1,h2,h3,h4 { font-family: var(--font-display); letter-spacing: 0.05em; }
   text-transform: uppercase;
   color: var(--text-muted);
   transition: color var(--transition);
+  text-decoration: none;
 }
 .nav-links a:hover,
-.nav-links a.active { color: var(--accent); text-decoration: none; }
+.nav-links a.active { color: var(--accent); }
 .nav-links .nav-cta {
   background: var(--accent);
   color: #000;
@@ -141,8 +155,6 @@ h1,h2,h3,h4 { font-family: var(--font-display); letter-spacing: 0.05em; }
   font-size: 0.82rem;
 }
 .nav-links .nav-cta:hover { background: #fff; }
-
-/* Hamburger */
 .hamburger {
   display: none;
   flex-direction: column;
@@ -207,7 +219,7 @@ h1,h2,h3,h4 { font-family: var(--font-display); letter-spacing: 0.05em; }
   z-index: 1;
 }
 .hotspot:hover::before { opacity: 1; }
-/* Raise hovered hotspot above floating tagline words */
+/* Raise hovered hotspot above tagline container (z-index 10) */
 .hotspot:hover { z-index: 15; }
 
 /* Option E: Name + label reveal on hover */
@@ -246,24 +258,131 @@ h1,h2,h3,h4 { font-family: var(--font-display); letter-spacing: 0.05em; }
   margin-top: 0.4em;
 }
 
-/* Tagline scatter words */
-.tagline-word {
+/* Tagline container — centered line below the hero logo */
+.tagline-container {
   position: absolute;
+  left: 50%;
+  top: 63%;
+  transform: translateX(-50%);
+  white-space: nowrap;
+  pointer-events: auto;
+  cursor: default;
+  z-index: 10;
+  /* don't clip scattered words */
+  overflow: visible;
+}
+
+/* Tagline words — inline at rest, transform on scatter */
+.tagline-word {
+  display: inline-block;
   color: #ffffff;
   font-family: var(--font-body);
   font-style: italic;
-  font-size: clamp(0.7rem, 1.8vw, 1rem);
+  font-size: clamp(0.85rem, 2.2vw, 1.5rem);
   font-weight: 400;
-  letter-spacing: 0.1em;
+  letter-spacing: 0.08em;
   text-shadow:
-    0 1px 12px rgba(0,0,0,0.95),
-    0 0 24px rgba(0,0,0,0.8),
-    1px 1px 4px rgba(0,0,0,1);
+    0 1px 14px rgba(0,0,0,0.98),
+    0 0 28px rgba(0,0,0,0.85),
+    1px 1px 5px rgba(0,0,0,1);
   white-space: nowrap;
   pointer-events: none;
-  z-index: 10;
   will-change: transform;
   user-select: none;
+  margin: 0 0.12em;
+}
+
+/* Hint text under tagline */
+.tagline-hint {
+  position: absolute;
+  left: 50%;
+  top: calc(63% + 2.4em);
+  transform: translateX(-50%);
+  font-family: var(--font-body);
+  font-size: clamp(0.55rem, 1.1vw, 0.72rem);
+  color: rgba(255,255,255,0.35);
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  pointer-events: none;
+  user-select: none;
+  white-space: nowrap;
+  z-index: 10;
+  transition: opacity 0.4s ease;
+}
+.tagline-hint.hidden { opacity: 0; }
+
+/* ── Artist marquee border (clockwise around hero image) ── */
+@keyframes smq-right { from { transform: translateX(-50%); } to { transform: translateX(0); } }
+@keyframes smq-left  { from { transform: translateX(0);    } to { transform: translateX(-50%); } }
+
+.stage-marquee {
+  position: absolute;
+  overflow: hidden;
+  z-index: 20;
+  pointer-events: none;
+}
+/* Top strip: solid opaque bar — the marquee reads clearly over any hero bg */
+.stage-marquee--top {
+  top: 0; left: 0; right: 0;
+  height: 40px;
+  background: rgba(0,0,0,0.92);
+}
+/* Bottom strip: thin decorative edge */
+.stage-marquee--bottom { bottom: 0; left: 0; right: 0; height: 20px; }
+/* Vertical strips: start below the taller top bar */
+.stage-marquee--right  { top: 40px; right: 0;  width: 20px; bottom: 20px; }
+.stage-marquee--left   { top: 40px; left: 0;   width: 20px; bottom: 20px; }
+
+/* Horizontal inner layout */
+.stage-marquee--top   .stage-marquee-inner,
+.stage-marquee--bottom .stage-marquee-inner {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  height: 100%;
+}
+
+/* Vertical inner: absolute positioned, rotated to fill the strip height */
+.stage-marquee--right  .stage-marquee-inner,
+.stage-marquee--left   .stage-marquee-inner {
+  position: absolute;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  height: 20px; /* STRIP_H — JS sets width = strip clientHeight */
+}
+.stage-marquee--right .stage-marquee-inner { transform: rotate(90deg);  }
+.stage-marquee--left  .stage-marquee-inner { transform: rotate(-90deg); }
+
+.stage-marquee-track {
+  flex-shrink: 0;
+  white-space: nowrap;
+  color: var(--accent);
+  font-family: var(--font-body);
+  font-size: 0.75rem;
+  letter-spacing: 0.06em;
+  padding: 0 6px;
+  display: block;
+}
+
+/* Star sits at the right end of the black top bar */
+.stage-marquee-star {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translateX(-50%) translateY(-50%);
+  color: var(--accent);
+  display: flex;
+  align-items: center;
+  text-decoration: none;
+  pointer-events: auto;   /* override parent pointer-events: none */
+  z-index: 2;
+  filter: drop-shadow(0 0 6px rgba(91,200,232,0.45));
+  transition: color var(--transition), filter var(--transition);
+}
+.stage-marquee-star:hover {
+  color: #fff;
+  filter: drop-shadow(0 0 14px rgba(91,200,232,0.9));
 }
 
 /* Stage modal */

@@ -294,99 +294,92 @@ function initTicker() {
   });
 }
 
-// ── Tagline scatter / drift effect ───────────────────────
+// ── Tagline scatter / explosion effect ───────────────────
 function initTaglineScatter() {
   const container = document.querySelector('.hotspot-container');
   if (!container) return;
 
-  //  text        center-x%  center-y%  float-phase  float-amp(px)  drift-lerp  max-drift(px)
+  // Build the tagline container (centered line at rest)
+  const tagline = document.createElement('div');
+  tagline.className = 'tagline-container';
+
+  // Each word with its explosion vector (% of container w/h)
+  // Positive x = right, positive y = down
   const WORDS = [
-    { t: 'rock',    bx: 27, by: 70.5, ph: 0.0, amp: 7,  lr: 0.07, md: 55 },
-    { t: '·',       bx: 35, by: 72.0, ph: 1.1, amp: 5,  lr: 0.13, md: 70 },
-    { t: 'dance',   bx: 43, by: 69.5, ph: 2.3, amp: 8,  lr: 0.06, md: 45 },
-    { t: '·',       bx: 52, by: 71.0, ph: 3.5, amp: 4,  lr: 0.14, md: 75 },
-    { t: 'pop',     bx: 59, by: 72.5, ph: 4.7, amp: 7,  lr: 0.08, md: 55 },
-    { t: '·',       bx: 66, by: 70.0, ph: 0.4, amp: 5,  lr: 0.12, md: 68 },
-    { t: '80s',     bx: 73, by: 71.5, ph: 1.6, amp: 6,  lr: 0.09, md: 60 },
-    { t: '·',       bx: 28, by: 77.5, ph: 2.8, amp: 4,  lr: 0.11, md: 65 },
-    { t: '90s',     bx: 36, by: 76.5, ph: 4.0, amp: 7,  lr: 0.08, md: 58 },
-    { t: '·',       bx: 44, by: 78.0, ph: 5.2, amp: 5,  lr: 0.15, md: 72 },
-    { t: '00s',     bx: 51, by: 77.0, ph: 0.9, amp: 6,  lr: 0.09, md: 60 },
-    { t: 'and',     bx: 59, by: 78.5, ph: 2.1, amp: 7,  lr: 0.07, md: 50 },
-    { t: 'beyond',  bx: 68, by: 77.0, ph: 3.3, amp: 8,  lr: 0.06, md: 48 },
+    { t: 'rock',   vx: -30, vy: -26 },
+    { t: '·',      vx:  -4, vy: -20 },
+    { t: 'dance',  vx: -18, vy: -34 },
+    { t: '·',      vx:   3, vy: -16 },
+    { t: 'pop',    vx:  20, vy: -30 },
+    { t: '·',      vx:   6, vy: -12 },
+    { t: '80s',    vx:  28, vy: -24 },
+    { t: '·',      vx: -12, vy:  18 },
+    { t: '90s',    vx: -26, vy:  22 },
+    { t: '·',      vx:   5, vy:  20 },
+    { t: '00s',    vx:  18, vy:  28 },
+    { t: 'and',    vx:  32, vy:  16 },
+    { t: 'beyond', vx:  38, vy:  12 },
   ];
 
-  // Build DOM elements
-  WORDS.forEach(w => {
-    const el = document.createElement('span');
-    el.className = 'tagline-word';
-    el.textContent = w.t;
-    el.style.left = w.bx + '%';
-    el.style.top  = w.by + '%';
-    container.appendChild(el);
-    w.el = el;
-    w.cx = 0; w.cy = 0; // current offset from base
-    w.tx = 0; w.ty = 0; // target offset
+  const spans = WORDS.map(w => {
+    const span = document.createElement('span');
+    span.className = 'tagline-word';
+    span.textContent = w.t;
+    tagline.appendChild(span);
+    return { el: span, vx: w.vx, vy: w.vy };
   });
 
-  let mouseOver = false;
-  let mouseX = 0, mouseY = 0;
-  let cW = container.offsetWidth;
-  let cH = container.offsetHeight;
-  let lastTs = 0;
+  // "hover to explore" hint
+  const hint = document.createElement('div');
+  hint.className = 'tagline-hint';
+  hint.textContent = 'hover to scatter';
 
-  window.addEventListener('resize', () => {
-    cW = container.offsetWidth;
-    cH = container.offsetHeight;
-  }, { passive: true });
+  container.appendChild(tagline);
+  container.appendChild(hint);
 
-  container.addEventListener('mousemove', e => {
-    const r = container.getBoundingClientRect();
-    mouseX = e.clientX - r.left;
-    mouseY = e.clientY - r.top;
-    mouseOver = true;
-  });
-  container.addEventListener('mouseleave', () => { mouseOver = false; });
+  let scattered = false;
 
-  function tick(ts) {
-    const dt = Math.min(ts - (lastTs || ts), 50); // cap delta at 50 ms
-    lastTs = ts;
-    const t = ts * 0.001; // seconds
-
-    WORDS.forEach(w => {
-      // Idle float: gentle vertical sine wave, unique phase per word
-      const floatY = w.amp * Math.sin(t * 0.75 + w.ph);
-
-      if (mouseOver) {
-        // Vector from word's base position to cursor
-        const bpx = (w.bx / 100) * cW;
-        const bpy = (w.by / 100) * cH;
-        const dx  = mouseX - bpx;
-        const dy  = mouseY - bpy;
-        const d   = Math.sqrt(dx * dx + dy * dy) || 1;
-        // Drift proportional to proximity, clamped at maxD
-        const m   = Math.min(d * 0.38, w.md);
-        w.tx = (dx / d) * m;
-        w.ty = floatY + (dy / d) * m * 0.55;
-      } else {
-        w.tx = 0;
-        w.ty = floatY;
-      }
-
-      // Lerp current toward target (frame-rate independent)
-      const f = 1 - Math.pow(1 - w.lr, dt / 16.667);
-      w.cx += (w.tx - w.cx) * f;
-      w.cy += (w.ty - w.cy) * f;
-
-      // translateX(-50%) keeps the word centered at its left% anchor
-      w.el.style.transform =
-        `translateX(calc(-50% + ${w.cx.toFixed(1)}px)) translateY(${w.cy.toFixed(1)}px)`;
+  function scatter() {
+    if (scattered) return;
+    scattered = true;
+    hint.classList.add('hidden');
+    const cW = container.offsetWidth;
+    const cH = container.offsetHeight;
+    spans.forEach(s => {
+      const tx = Math.round((s.vx / 100) * cW);
+      const ty = Math.round((s.vy / 100) * cH);
+      s.el.style.transition = 'transform 150ms ease-out, opacity 180ms ease-out';
+      s.el.style.transform  = `translate(${tx}px, ${ty}px)`;
+      s.el.style.opacity    = '0.12';
     });
-
-    requestAnimationFrame(tick);
   }
 
-  requestAnimationFrame(tick);
+  function reassemble() {
+    if (!scattered) return;
+    scattered = false;
+    spans.forEach(s => {
+      s.el.style.transition = 'transform 600ms cubic-bezier(0.34,1.56,0.64,1), opacity 350ms ease';
+      s.el.style.transform  = 'translate(0, 0)';
+      s.el.style.opacity    = '1';
+    });
+    // Fade hint back in after words settle
+    setTimeout(() => { hint.classList.remove('hidden'); }, 650);
+  }
+
+  // Desktop
+  tagline.addEventListener('mouseenter', scatter);
+  tagline.addEventListener('mouseleave', reassemble);
+
+  // Mobile: tap tagline to scatter; tap elsewhere to reassemble
+  tagline.addEventListener('touchstart', e => {
+    e.stopPropagation();
+    if (!scattered) scatter();
+    else reassemble();
+  }, { passive: true });
+
+  document.addEventListener('touchstart', () => {
+    if (scattered) reassemble();
+  }, { passive: true });
 }
 
 // ── Stage modal system ────────────────────────────────────
@@ -496,19 +489,26 @@ function buildModalHTML(type) {
       `;
     }
 
-    case 'gallery':
+    case 'gallery': {
+      const previews = [
+        { src: 'images/gallery/AlmostFamous_May30-32.jpg', alt: 'Almost Famous GTA live' },
+        { src: 'images/gallery/AlmostFamous_May30-38.jpg', alt: 'Almost Famous GTA on stage' },
+        { src: 'images/gallery/IMG_1808.JPG',              alt: 'Almost Famous GTA 2015' },
+        { src: 'images/gallery/1.jpg',                     alt: 'Almost Famous GTA 2014' },
+      ];
       return `
         <h2>Gallery</h2>
         <div class="modal-gallery-grid">
-          ${[1,2,3,4].map(n => `
-            <div class="modal-gallery-item" onclick="window.location='gallery.html'">
-              <div class="gallery-placeholder" style="background:linear-gradient(135deg,#1a1a2e ${n*18}%,#2a1020 ${n*18+40}%,#0a0a0a);">
-                <span style="font-size:2rem;opacity:.3">${n}</span>
-              </div>
+          ${previews.map(p => `
+            <div class="modal-gallery-item" onclick="window.location='gallery.html'" style="cursor:pointer">
+              <img src="${p.src}" alt="${p.alt}" loading="lazy"
+                   style="width:100%;height:100%;object-fit:cover;display:block;"
+                   onerror="this.parentElement.style.background='linear-gradient(135deg,#1a1a2e,#0a0a0a)'"/>
             </div>`).join('')}
         </div>
         <a href="gallery.html" class="btn btn-primary" style="margin-top:1.5rem;display:inline-block">View Full Gallery</a>
       `;
+    }
 
     case 'book':
       return `
@@ -666,10 +666,10 @@ function initGalleryPreview() {
   if (!grid) return;
 
   const images = [
-    { src: 'images/gallery/1.jpg', year: '2024', alt: 'Almost Famous GTA performing live' },
-    { src: 'images/gallery/2.jpg', year: '2024', alt: 'Band on stage' },
-    { src: 'images/gallery/3.jpg', year: '2025', alt: 'Live performance' },
-    { src: 'images/gallery/4.jpg', year: '2025', alt: 'Crowd at the show' },
+    { src: 'images/gallery/AlmostFamous_May30-32.jpg', year: '2018', alt: 'Almost Famous GTA live performance' },
+    { src: 'images/gallery/AlmostFamous_May30-38.jpg', year: '2018', alt: 'Almost Famous GTA on stage' },
+    { src: 'images/gallery/IMG_1808.JPG',              year: '2015', alt: 'Almost Famous GTA 2015' },
+    { src: 'images/gallery/1.jpg',                     year: '2014', alt: 'Almost Famous GTA 2014' },
   ];
   AF.lightboxImages = images;
 
@@ -903,16 +903,46 @@ function initGalleryPage() {
   if (!grid) return;
 
   const images = [
-    { src: 'images/gallery/1.jpg',  year: '2025', alt: 'Almost Famous GTA — live 2025' },
-    { src: 'images/gallery/2.jpg',  year: '2025', alt: 'On stage performance 2025' },
-    { src: 'images/gallery/3.jpg',  year: '2024', alt: 'Band photo 2024' },
-    { src: 'images/gallery/4.jpg',  year: '2024', alt: 'Crowd at show 2024' },
-    { src: 'images/gallery/5.jpg',  year: '2018', alt: 'Early performance 2018' },
-    { src: 'images/gallery/6.jpg',  year: '2018', alt: 'Backstage 2018' },
-    { src: 'images/gallery/7.jpg',  year: '2017', alt: 'First show 2017' },
-    { src: 'images/gallery/8.jpg',  year: '2017', alt: 'Rehearsal 2017' },
-    { src: 'images/gallery/9.jpg',  year: '2024', alt: 'Sound check 2024' },
-    { src: 'images/gallery/10.jpg', year: '2025', alt: 'New Years show 2025' },
+    // 2025
+    { src: 'images/gallery/07c33cda81892271fcd9.jpg',                            year: '2025', alt: 'Almost Famous GTA 2025' },
+    { src: 'images/gallery/80e1f6ce3c5f7df88472.jpg',                            year: '2025', alt: 'Almost Famous GTA 2025' },
+    { src: 'images/gallery/83a0d986eaad2cec0e51.jpg',                            year: '2025', alt: 'Almost Famous GTA 2025' },
+    { src: 'images/gallery/12728837_10156611567140038_1723462455570338100_n.jpg', year: '2025', alt: 'Almost Famous GTA 2025' },
+    { src: 'images/gallery/a563bb4c5abef00e5617.jpg',                            year: '2025', alt: 'Almost Famous GTA 2025' },
+    { src: 'images/gallery/aade6b4174d098e06d5b.jpg',                            year: '2025', alt: 'Almost Famous GTA 2025' },
+    // 2018
+    { src: 'images/gallery/AlmostFamous_May30-32.jpg',                           year: '2018', alt: 'Almost Famous GTA live 2018' },
+    { src: 'images/gallery/AlmostFamous_May30-38.jpg',                           year: '2018', alt: 'Almost Famous GTA 2018' },
+    // 2016
+    { src: 'images/gallery/1d6ec72ea9706c94e3c9.jpg',  year: '2016', alt: 'Almost Famous GTA 2016' },
+    { src: 'images/gallery/23600bc71d0c521ec79f.jpg',  year: '2016', alt: 'Almost Famous GTA 2016' },
+    { src: 'images/gallery/3ac06e87a61abe81dfd6.jpg',  year: '2016', alt: 'Almost Famous GTA 2016' },
+    { src: 'images/gallery/3c234e6f2b824c1d51a2.jpg',  year: '2016', alt: 'Almost Famous GTA 2016' },
+    { src: 'images/gallery/3c9e4136fa2c09cd0c6d.jpg',  year: '2016', alt: 'Almost Famous GTA 2016' },
+    { src: 'images/gallery/3ce920a449340c2184b0.jpg',  year: '2016', alt: 'Almost Famous GTA 2016' },
+    { src: 'images/gallery/732bca635330d281da7d.jpg',  year: '2016', alt: 'Almost Famous GTA 2016' },
+    { src: 'images/gallery/8443be794b7f0db7b9a9.jpg',  year: '2016', alt: 'Almost Famous GTA 2016' },
+    { src: 'images/gallery/8abea0f07ffe315e4415.jpg',  year: '2016', alt: 'Almost Famous GTA 2016' },
+    { src: 'images/gallery/93ad818cf1d544156f3c.jpg',  year: '2016', alt: 'Almost Famous GTA 2016' },
+    { src: 'images/gallery/997fbdf7c79a67b1ff0f.jpg',  year: '2016', alt: 'Almost Famous GTA 2016' },
+    { src: 'images/gallery/adf81d433d4f97b7d55c.jpg',  year: '2016', alt: 'Almost Famous GTA 2016' },
+    { src: 'images/gallery/e141c609071368aeaeb4.jpg',  year: '2016', alt: 'Almost Famous GTA 2016' },
+    { src: 'images/gallery/IMG_2167.jpg',               year: '2016', alt: 'Almost Famous GTA 2016' },
+    { src: 'images/gallery/IMG_6588.JPG',               year: '2016', alt: 'Almost Famous GTA 2016' },
+    { src: 'images/gallery/IMG_7250.JPG',               year: '2016', alt: 'Almost Famous GTA 2016' },
+    { src: 'images/gallery/IMG_8018.JPG',               year: '2016', alt: 'Almost Famous GTA 2016' },
+    // 2015
+    { src: 'images/gallery/Schwaben 2015_IMG_1879.jpg', year: '2015', alt: 'Almost Famous GTA at Schwaben Club 2015' },
+    { src: 'images/gallery/IMG_1808.JPG',               year: '2015', alt: 'Almost Famous GTA 2015' },
+    { src: 'images/gallery/IMG_6748.JPG',               year: '2015', alt: 'Almost Famous GTA 2015' },
+    { src: 'images/gallery/IMG_6847.JPG',               year: '2015', alt: 'Almost Famous GTA 2015' },
+    { src: 'images/gallery/IMG_7510.JPG',               year: '2015', alt: 'Almost Famous GTA 2015' },
+    // 2014
+    { src: 'images/gallery/1.jpg',                      year: '2014', alt: 'Almost Famous GTA 2014' },
+    { src: 'images/gallery/4.jpg',                      year: '2014', alt: 'Almost Famous GTA 2014' },
+    { src: 'images/gallery/5.jpg',                      year: '2014', alt: 'Almost Famous GTA 2014' },
+    { src: 'images/gallery/IMG_2873 - Copy.JPG',        year: '2014', alt: 'Almost Famous GTA 2014' },
+    { src: 'images/gallery/IMG_2881.JPG',               year: '2014', alt: 'Almost Famous GTA 2014' },
   ];
   AF.lightboxImages = images;
 
@@ -966,6 +996,93 @@ function initKeyboard() {
   });
 }
 
+// ── Artist marquee border (clockwise around hero image) ───
+function initStageMarquee() {
+  const container = document.querySelector('.hotspot-container');
+  if (!container) return;
+
+  // Trailing spaces give a visible gap between the looped copies
+  const TEXT = 'Depeche Mode \u00b7 Jimmy Eat World \u00b7 Blur \u00b7 The Cult \u00b7 Tommy Tutone \u00b7 The Killers \u00b7 The Tragically Hip \u00b7 A Flock of Seagulls \u00b7 Simple Minds \u00b7 The Beatles \u00b7 George Michael \u00b7 Gary Numan \u00b7 Bruno Mars \u00b7 The Cure \u00b7 David Bowie \u00b7 The Clash \u00b7 Billy Idol \u00b7 Pet Shop Boys \u00b7 The Escape Club \u00b7 Alannah Myles \u00b7 Wild Cherry \u00b7 Erasure \u00b7 Santana \u00b7 The Charlatans \u00b7 The Fixx \u00b7 Soft Cell \u00b7 Dead Or Alive \u00b7 Amy Winehouse \u00b7 House Of Pain \u00b7 Steppenwolf \u00b7 Elvis Costello \u00b7 The Black Crowes \u00b7 The Proclaimers \u00b7 Neil Diamond \u00b7 B-52s \u00b7 Young MC \u00b7 Pat Benatar \u00a0\u00a0\u00a0\u00a0';
+  const STRIP_H = 20;  // px — must match CSS
+  const SPEED   = 50;  // px/s
+
+  // Build one strip: wrap > inner > track × 2
+  function buildStrip(side) {
+    const wrap  = document.createElement('div');
+    wrap.className = `stage-marquee stage-marquee--${side}`;
+    const inner = document.createElement('div');
+    inner.className = 'stage-marquee-inner';
+    for (let i = 0; i < 2; i++) {
+      const track = document.createElement('div');
+      track.className = 'stage-marquee-track';
+      track.textContent = TEXT;
+      inner.appendChild(track);
+    }
+    wrap.appendChild(inner);
+    container.appendChild(wrap);
+    return inner;
+  }
+
+  const topInner    = buildStrip('top');
+  const rightInner  = buildStrip('right');
+  const bottomInner = buildStrip('bottom');
+  const leftInner   = buildStrip('left');
+
+  // Star lives in the right end of the solid top bar — never overlaps the hero image
+  const star = document.createElement('a');
+  star.className = 'stage-marquee-star';
+  star.href = 'index.html';
+  star.setAttribute('aria-label', 'Almost Famous GTA — Home');
+  star.innerHTML = '<svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true" focusable="false"><polygon points="12,2 15.09,8.26 22,9.27 17,14.14 18.18,21.02 12,17.77 5.82,21.02 7,14.14 2,9.27 8.91,8.26" fill="currentColor"/></svg>';
+  topInner.parentElement.appendChild(star);
+
+  // Measure and animate after layout
+  requestAnimationFrame(() => {
+    // Horizontal text length — use Pretext for precision, fall back to DOM
+    let hLen;
+    if (window.Pretext) {
+      const style = getComputedStyle(topInner.firstChild);
+      const fs    = parseFloat(style.fontSize);
+      const ff    = style.fontFamily;
+      const prep  = Pretext.prepare(TEXT, { fontSize: fs, fontFamily: ff });
+      let w = 0;
+      Pretext.walkLineRanges(prep, 999999, fs * 1.5, (s, e, lw) => { w = Math.max(w, lw); });
+      hLen = Math.ceil(w) + 12; // +12 for track padding (6px each side)
+    } else {
+      hLen = topInner.firstChild.offsetWidth;
+    }
+
+    // Size the vertical-strip inners so they span the strip's full height.
+    // The inner is a horizontal flex bar that gets rotated 90°; its width
+    // must equal the parent strip's clientHeight so after rotation it fills
+    // the strip top-to-bottom.
+    [rightInner, leftInner].forEach(inner => {
+      const strip = inner.parentElement;
+      const h     = strip.clientHeight;          // height of the vertical strip
+      const half  = h / 2;
+      // Centre the bar in the strip, then rotate around its own centre.
+      // rotate(90deg) on the right inner  → +X becomes downward → smq-right = downward ✓
+      // rotate(-90deg) on the left inner  → +X becomes upward   → smq-right = upward  ✓
+      inner.style.width       = h + 'px';
+      inner.style.top         = half + 'px';
+      inner.style.left        = half + 'px';
+      inner.style.marginTop   = -(STRIP_H / 2) + 'px';
+      inner.style.marginLeft  = -half + 'px';
+    });
+
+    const dur = hLen / SPEED;
+
+    // Top  → text travels right  (enter from left,  exit right)
+    topInner.style.animation    = `smq-right ${dur}s linear infinite`;
+    // Right → rotate(90deg) parent; smq-right on child → downward in page
+    rightInner.style.animation  = `smq-right ${dur}s linear infinite`;
+    // Bottom → text travels left  (enter from right, exit left)
+    bottomInner.style.animation = `smq-left  ${dur}s linear infinite`;
+    // Left  → rotate(-90deg) parent; smq-right on child → upward in page
+    leftInner.style.animation   = `smq-right ${dur}s linear infinite`;
+  });
+}
+
 // ── Scroll fade-in ────────────────────────────────────────
 function initScrollFade() {
   const els = document.querySelectorAll('.fade-in');
@@ -989,6 +1106,7 @@ async function init() {
   if (page === 'home') {
     initStage();
     initTaglineScatter();
+    initStageMarquee();
     initNextShowBar();
     initDraggablePhoto();
     initGalleryPreview();
