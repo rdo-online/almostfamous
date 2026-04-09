@@ -11,6 +11,94 @@
     "private": false
   },
   {
+    "id": "2026-04-23",
+    "date": "2026-04-23",
+    "time": "7:00 PM",
+    "venue": "Oscar's Roadhouse",
+    "city": "Brampton",
+    "address": "Oscar's Roadhouse, Brampton, ON",
+    "phone": "(905) 799-1304",
+    "upcoming": true,
+    "private": false
+  },
+  {
+    "id": "2026-06-27",
+    "date": "2026-06-27",
+    "time": "7:00 PM",
+    "venue": "Private Party",
+    "city": "",
+    "address": "",
+    "phone": "",
+    "upcoming": true,
+    "private": true
+  },
+  {
+    "id": "2026-07-10",
+    "date": "2026-07-10",
+    "time": "9:00 PM",
+    "venue": "Timothy's Pub",
+    "city": "Etobicoke",
+    "address": "344 Browns Line, Etobicoke, ON M8W 3T7",
+    "phone": "(416) 201-9515",
+    "upcoming": true,
+    "private": false
+  },
+  {
+    "id": "2026-08-07",
+    "date": "2026-08-07",
+    "time": "7:00 PM",
+    "venue": "Royal Canadian Legion, Branch 101",
+    "city": "Etobicoke",
+    "address": "3850 Lake Shore Blvd W, Etobicoke, ON M8W 1R3",
+    "phone": "(416) 255-4381",
+    "upcoming": true,
+    "private": false
+  },
+  {
+    "id": "2026-09-26",
+    "date": "2026-09-26",
+    "time": "3:00 PM",
+    "venue": "Timothy's Pub",
+    "city": "Etobicoke",
+    "address": "344 Browns Line, Etobicoke, ON M8W 3T7",
+    "phone": "(416) 201-9515",
+    "upcoming": true,
+    "private": false
+  },
+  {
+    "id": "2026-11-20",
+    "date": "2026-11-20",
+    "time": "7:00 PM",
+    "venue": "Royal Canadian Legion, Branch 101",
+    "city": "Etobicoke",
+    "address": "3850 Lake Shore Blvd W, Etobicoke, ON M8W 1R3",
+    "phone": "(416) 255-4381",
+    "upcoming": true,
+    "private": false
+  },
+  {
+    "id": "2026-11-28",
+    "date": "2026-11-28",
+    "time": "3:00 PM",
+    "venue": "Timothy's Pub",
+    "city": "Etobicoke",
+    "address": "344 Browns Line, Etobicoke, ON M8W 3T7",
+    "phone": "(416) 201-9515",
+    "upcoming": true,
+    "private": false
+  },
+  {
+    "id": "2026-12-12",
+    "date": "2026-12-12",
+    "time": "6:00 PM",
+    "venue": "Royal Canadian Legion, Branch 101",
+    "city": "Etobicoke",
+    "address": "3850 Lake Shore Blvd W, Etobicoke, ON M8W 1R3",
+    "phone": "(416) 255-4381",
+    "upcoming": true,
+    "private": false
+  },
+  {
     "id": "2026-02-06",
     "date": "2026-02-06",
     "time": "9:00 PM",
