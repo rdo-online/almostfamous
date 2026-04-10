@@ -21,6 +21,17 @@
     "upcoming": true,
     "private": false
   },
+    {
+    "id": "2026-04-29",
+    "date": "2026-04-29",
+    "time": "7:30 PM",
+    "venue": "The Old Sod",
+    "city": "Etobicoke",
+    "address": "2936 Bloor St W, Etobicoke, ON M8X 1B5",
+    "phone": "(416) 239-3812",
+    "upcoming": true,
+    "private": false
+  },
   {
     "id": "2026-06-27",
     "date": "2026-06-27",
