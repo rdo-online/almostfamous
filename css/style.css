@@ -1110,9 +1110,9 @@ footer {
   .next-show-info { font-size: 0.95rem; }
 
   /* Home hero */
-  .stage-marquee--top { height: 28px; }
+  .stage-marquee--top { height: 24px; }
   .stage-marquee--right,
-  .stage-marquee--left { top: 28px; }
+  .stage-marquee--left { top: 24px; }
 
   /* About */
   #bio-photo {
