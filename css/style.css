@@ -1109,6 +1109,11 @@ footer {
   .next-show-content { flex-direction: column; align-items: flex-start; }
   .next-show-info { font-size: 0.95rem; }
 
+  /* Home hero */
+  .stage-marquee--top { height: 28px; }
+  .stage-marquee--right,
+  .stage-marquee--left { top: 28px; }
+
   /* About */
   #bio-photo {
     position: static;
