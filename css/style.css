@@ -838,6 +838,7 @@ footer {
   transition: border-color var(--transition);
 }
 .show-card.upcoming { border-left: 3px solid var(--accent); }
+.show-card.featured { border-color: #333; border-left-color: var(--accent); }
 .show-card.past     { border-left: 3px solid #333; opacity: 0.75; }
 .show-card:hover    { border-color: #444; }
 .show-card-inner    { padding: 1.5rem 2rem; }

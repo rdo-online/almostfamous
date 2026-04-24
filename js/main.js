@@ -793,6 +793,8 @@ function navigateLightbox(dir) {
 
 // ── Shows page ────────────────────────────────────────────
 async function initShowsPage() {
+  const nextFeature = document.getElementById('next-show-feature');
+  const nextCardEl  = document.getElementById('next-show-card');
   const upcomingEl = document.getElementById('upcoming-shows');
   const pastEl     = document.getElementById('past-shows');
   console.log('[AF] initShowsPage — upcomingEl:', !!upcomingEl, '| pastEl:', !!pastEl);
@@ -812,6 +814,19 @@ async function initShowsPage() {
     .sort(sortGigsNewestFirst);
 
   console.log('[AF] upcoming:', upcoming.length, '| past:', past.length);
+
+  if (nextFeature && nextCardEl) {
+    if (!upcoming.length) {
+      nextFeature.hidden = true;
+      nextCardEl.innerHTML = '';
+    } else {
+      const nextCard = createUpcomingCard(upcoming[0]);
+      nextCard.classList.add('featured');
+      nextCardEl.innerHTML = '';
+      nextCardEl.appendChild(nextCard);
+      nextFeature.hidden = false;
+    }
+  }
 
   // ── Upcoming ──────────────────────────────────────────
   if (upcomingEl) {
