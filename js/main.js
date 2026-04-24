@@ -411,7 +411,7 @@ function initStage() {
   if (!overlay) return;
 
   // Modal hotspots
-  document.querySelectorAll('.hotspot[data-action="modal"]').forEach(el => {
+  document.querySelectorAll('[data-action="modal"]').forEach(el => {
     const handler = () => openStageModal(el.dataset.modal);
     el.addEventListener('click', handler);
     el.addEventListener('keydown', e => {
@@ -420,7 +420,7 @@ function initStage() {
   });
 
   // Link hotspots
-  document.querySelectorAll('.hotspot[data-action="link"]').forEach(el => {
+  document.querySelectorAll('[data-action="link"]').forEach(el => {
     const handler = () => window.open(el.dataset.href, '_blank', 'noopener');
     el.addEventListener('click', handler);
     el.addEventListener('keydown', e => {

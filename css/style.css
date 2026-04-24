@@ -385,6 +385,8 @@ h1,h2,h3,h4 { font-family: var(--font-display); letter-spacing: 0.05em; }
   filter: drop-shadow(0 0 14px rgba(91,200,232,0.9));
 }
 
+.mobile-stage-menu { display: none; }
+
 /* Stage modal */
 .stage-modal-overlay {
   position: fixed;
@@ -1112,6 +1114,29 @@ footer {
 
   /* Home hero */
   .hotspot-container { background-position: center 32px; }
+  .mobile-stage-menu {
+    display: block;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 1.5rem 2rem 2rem;
+    border-top: 1px solid #1e1e1e;
+    background: linear-gradient(180deg, #08080f 0%, #0d1a22 100%);
+  }
+  .mobile-stage-menu h2 {
+    color: var(--accent);
+    font-size: 1rem;
+    margin-bottom: 1rem;
+    text-transform: uppercase;
+  }
+  .mobile-stage-menu-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 0.75rem;
+  }
+  .mobile-stage-menu .btn {
+    width: 100%;
+    text-align: center;
+  }
 
   /* About */
   #bio-photo {
@@ -1141,6 +1166,7 @@ footer {
   #gallery-grid { columns: 2 140px; }
 .next-show-actions { flex-direction: column; width: 100%; }
   .next-show-actions .btn { text-align: center; }
+  .mobile-stage-menu-grid { grid-template-columns: 1fr; }
 }
 
 /* ── Animation: fade-in on scroll ─────────────────────── */
