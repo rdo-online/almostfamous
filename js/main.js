@@ -101,6 +101,29 @@ function formatDate(dateStr) {
   });
 }
 
+function gigDate(gig) {
+  const [year, month, day] = gig.date.split('-').map(Number);
+  return new Date(year, month - 1, day);
+}
+
+function todayAtMidnight() {
+  const today = new Date();
+  today.setHours(0, 0, 0, 0);
+  return today;
+}
+
+function isUpcomingGig(gig, today = todayAtMidnight()) {
+  return gigDate(gig) >= today;
+}
+
+function sortGigsSoonestFirst(a, b) {
+  return gigDate(a) - gigDate(b);
+}
+
+function sortGigsNewestFirst(a, b) {
+  return gigDate(b) - gigDate(a);
+}
+
 function parse12to24(t) {
   // "7:00 PM" → "19:00:00"
   const [timePart, period] = t.trim().split(' ');
@@ -460,7 +483,10 @@ function buildModalHTML(type) {
       `;
 
     case 'shows': {
-      const next = AF.gigs.find(g => g.upcoming === true);
+      const today = todayAtMidnight();
+      const next = AF.gigs
+        .filter(g => isUpcomingGig(g, today))
+        .sort(sortGigsSoonestFirst)[0];
       if (!next) return `
         <h2>Upcoming Shows</h2>
         <p>No upcoming shows at this time. Check back soon!</p>
@@ -543,7 +569,10 @@ function initNextShowBar() {
   const bar = document.getElementById('next-show-bar');
   if (!bar) return;
 
-  const next = AF.gigs.find(g => g.upcoming);
+  const today = todayAtMidnight();
+  const next = AF.gigs
+    .filter(g => isUpcomingGig(g, today))
+    .sort(sortGigsSoonestFirst)[0];
   if (!next) {
     bar.innerHTML = '<p class="no-shows" style="text-align:center;padding:1rem;color:var(--text-muted)">No upcoming shows right now. Check back soon!</p>';
     return;
@@ -774,8 +803,13 @@ async function initShowsPage() {
 
   console.log('[AF] total gigs loaded:', AF.gigs.length);
 
-  const upcoming = AF.gigs.filter(g => g.upcoming === true);
-  const past     = AF.gigs.filter(g => g.upcoming !== true);
+  const today    = todayAtMidnight();
+  const upcoming = AF.gigs
+    .filter(g => isUpcomingGig(g, today))
+    .sort(sortGigsSoonestFirst);
+  const past     = AF.gigs
+    .filter(g => !isUpcomingGig(g, today))
+    .sort(sortGigsNewestFirst);
 
   console.log('[AF] upcoming:', upcoming.length, '| past:', past.length);
 
