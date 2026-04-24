@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta name="robots" content="noindex"/>
+  <title>Gig Helper — Almost Famous GTA</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+  <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;600;700&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="css/style.css"/>
+  <style>
+    .helper-main { max-width: 900px; margin: 0 auto; padding: 3rem 2rem 5rem; }
+    .helper-form { display: grid; gap: 1rem; }
+    .helper-field { display: grid; gap: 0.35rem; }
+    .helper-field label,
+    .helper-check label {
+      font-family: var(--font-display);
+      font-size: 0.82rem;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+    }
+    .helper-field input,
+    .helper-output {
+      width: 100%;
+      background: var(--bg-2);
+      color: var(--text);
+      border: 1px solid #2a2a3a;
+      border-radius: var(--radius);
+      padding: 0.75rem 0.9rem;
+      font: inherit;
+    }
+    .helper-output {
+      min-height: 260px;
+      margin-top: 1rem;
+      font-family: "Courier New", monospace;
+      resize: vertical;
+    }
+    .helper-check { display: flex; align-items: center; gap: 0.65rem; margin-top: 0.25rem; }
+    .helper-check input { width: 1rem; height: 1rem; accent-color: var(--accent); }
+    .helper-actions { display: flex; gap: 0.75rem; flex-wrap: wrap; margin-top: 0.75rem; }
+    .helper-note { color: var(--text-muted); margin: 0.75rem 0 2rem; }
+    @media (max-width: 640px) {
+      .helper-main { padding: 2rem 1rem 4rem; }
+      .helper-actions .btn { width: 100%; text-align: center; }
+    }
+  </style>
+</head>
+<body>
+<nav id="main-nav" aria-label="Utility navigation">
+  <a class="nav-back" href="shows.html">&larr; BACK TO SHOWS</a>
+</nav>
+
+<header class="page-hero" role="banner">
+  <div class="page-hero-inner">
+    <h1>GIG <span>HELPER</span></h1>
+    <p>Generate a data/gigs.json entry</p>
+  </div>
+</header>
+
+<main class="helper-main">
+  <p class="helper-note">Fill out the show details, generate the JSON, then paste it into data/gigs.json.</p>
+
+  <form class="helper-form" id="gig-form">
+    <div class="helper-field">
+      <label for="gig-date">Date</label>
+      <input id="gig-date" name="date" type="date" required/>
+    </div>
+
+    <div class="helper-field">
+      <label for="gig-time">Time</label>
+      <input id="gig-time" name="time" type="text" placeholder="7:00 PM"/>
+    </div>
+
+    <div class="helper-field">
+      <label for="gig-venue">Venue</label>
+      <input id="gig-venue" name="venue" type="text" required/>
+    </div>
+
+    <div class="helper-field">
+      <label for="gig-city">City</label>
+      <input id="gig-city" name="city" type="text"/>
+    </div>
+
+    <div class="helper-field">
+      <label for="gig-address">Address</label>
+      <input id="gig-address" name="address" type="text"/>
+    </div>
+
+    <div class="helper-field">
+      <label for="gig-phone">Phone</label>
+      <input id="gig-phone" name="phone" type="tel"/>
+    </div>
+
+    <div class="helper-check">
+      <input id="gig-private" name="private" type="checkbox"/>
+      <label for="gig-private">Private show</label>
+    </div>
+
+    <div class="helper-actions">
+      <button class="btn btn-primary" type="submit">Generate JSON</button>
+      <button class="btn btn-secondary" id="copy-json" type="button">Copy JSON</button>
+    </div>
+  </form>
+
+  <textarea class="helper-output" id="gig-json" readonly aria-label="Generated JSON"></textarea>
+</main>
+
+<script>
+  const form = document.getElementById('gig-form');
+  const output = document.getElementById('gig-json');
+  const copyButton = document.getElementById('copy-json');
+
+  form.addEventListener('submit', event => {
+    event.preventDefault();
+    const data = new FormData(form);
+    const date = data.get('date');
+    const gig = {
+      id: date,
+      date,
+      time: data.get('time').trim(),
+      venue: data.get('venue').trim(),
+      city: data.get('city').trim(),
+      address: data.get('address').trim(),
+      phone: data.get('phone').trim(),
+      upcoming: true,
+      private: data.has('private')
+    };
+
+    output.value = JSON.stringify(gig, null, 2);
+    output.focus();
+    output.select();
+  });
+
+  copyButton.addEventListener('click', async () => {
+    if (!output.value) return;
+    await navigator.clipboard.writeText(output.value);
+    copyButton.textContent = 'Copied';
+    setTimeout(() => { copyButton.textContent = 'Copy JSON'; }, 1200);
+  });
+</script>
+</body>
+</html>
