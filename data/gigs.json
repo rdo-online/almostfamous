@@ -77,17 +77,6 @@
     "private": false
   },
   {
-    "id": "2026-09-25",
-    "date": "2026-09-25",
-    "time": "8:30 PM",
-    "venue": "Oscar's Roadhouse",
-    "city": "Brampton",
-    "address": "1785 Queen St E, Brampton, ON L6T 4S3",
-    "phone": "(905) 799-1304",
-    "upcoming": true,
-    "private": false
-  },
-  {
     "id": "2026-09-26",
     "date": "2026-09-26",
     "time": "3:00 PM",
@@ -106,6 +95,17 @@
     "city": "Etobicoke",
     "address": "344 Browns Line, Etobicoke, ON M8W 3T7",
     "phone": "(416) 201-9515",
+    "upcoming": true,
+    "private": false
+  },
+  {
+    "id": "2026-10-23",
+    "date": "2026-10-23",
+    "time": "8:30 PM",
+    "venue": "Oscar's Roadhouse",
+    "city": "Brampton",
+    "address": "1785 Queen St E, Brampton, ON L6T 4S3",
+    "phone": "(905) 799-1304",
     "upcoming": true,
     "private": false
   },
