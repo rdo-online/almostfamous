@@ -77,6 +77,17 @@
     "private": false
   },
   {
+    "id": "2026-09-12",
+    "date": "2026-09-12",
+    "time": "9:00 PM",
+    "venue": "Cuchulainn's Irish Pub",
+    "city": "Streetsville",
+    "address": "158 Queen St S, Mississauga, ON L5M 1K8",
+    "phone": "(905) 821-3790",
+    "upcoming": true,
+    "private": false
+  },
+  {
     "id": "2026-09-26",
     "date": "2026-09-26",
     "time": "3:00 PM",

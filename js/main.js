@@ -15,6 +15,7 @@ const AF = {
 
 // ── Fallback data (works with file:// protocol) ───────────
 const FALLBACK_GIGS = [
+  { id: '2026-09-12', date: '2026-09-12', time: '9:00 PM',  venue: "Cuchulainn's Irish Pub",            city: 'Streetsville', address: '158 Queen St S, Mississauga, ON L5M 1K8',          phone: '(905) 821-3790', upcoming: true,  private: false },
   { id: '2026-04-17', date: '2026-04-17', time: '7:00 PM',  venue: 'Royal Canadian Legion, Branch 101', city: 'Etobicoke',    address: '3850 Lake Shore Blvd W, Etobicoke, ON M8W 1R3',   phone: '(416) 255-4381', upcoming: true,  private: false },
   { id: '2026-02-06', date: '2026-02-06', time: '9:00 PM',  venue: "Cuchulainn's Irish Pub",            city: 'Streetsville', address: '158 Queen St S, Mississauga, ON L5M 1K8',          phone: '(905) 821-3790', upcoming: false, private: false },
   { id: '2026-01-30', date: '2026-01-30', time: '7:00 PM',  venue: 'Royal Canadian Legion, Branch 101', city: 'Etobicoke',    address: '3850 Lake Shore Blvd W, Etobicoke, ON M8W 1R3',   phone: '(416) 255-4381', upcoming: false, private: false },
