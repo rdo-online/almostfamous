@@ -1,0 +1,5 @@
+# Richard's personal site lives in its own Netlify project (richard-do) and is shown here at /richard/
+/richard                 /richard/                                      301
+/richard/*               https://richard-do.netlify.app/richard/:splat  200
+# Old address from the June 2026 upload
+/richard-arcade-resume/* /richard/arcade/:splat                         301
